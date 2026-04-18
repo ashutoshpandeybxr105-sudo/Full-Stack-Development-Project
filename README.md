@@ -45,35 +45,30 @@ This project demonstrates basic product management, cart system, and order/payme
 
 ## 📁 Project Structure
 
-
+```
 Full Stack Development Project/
-│
 ├── backend/
-│ ├── src/main/java/com/example/e/commerce/
-│ │ ├── ECommerceApplication.java
-│ │ ├── Product.java
-│ │ ├── ProductController.java
-│ │ ├── ProductRepository.java
-│ │ ├── Order.java
-│ │ ├── OrderRepository.java
-│ │ ├── PaymentController.java
-│ │ ├── PaymentRequest.java
-│ │
-│ ├── src/main/resources/
-│ │ ├── application.properties
-│ │
-│ ├── pom.xml
-│
+│   ├── pom.xml
+│   └── src/
+│       └── main/
+│           ├── java/com/example/e/commerce/
+│           │   ├── ECommerceApplication.java
+│           │   ├── Product.java
+│           │   ├── ProductController.java
+│           │   ├── ProductRepository.java
+│           │   ├── Order.java
+│           │   ├── OrderRepository.java
+│           │   ├── PaymentController.java
+│           │   └── PaymentRequest.java
+│           └── resources/
+│               └── application.properties
 ├── frontend/
-│ ├── index.html
-│ ├── checkout.html
-│ ├── login.html
-│ ├── payment.html
-│ ├── success.html
-│
-
-
----
+│   ├── index.html
+│   ├── checkout.html
+│   ├── login.html
+│   ├── payment.html
+│   └── success.html
+```
 
 ## ⚙️ How to Run the Project
 
