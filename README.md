@@ -102,14 +102,6 @@ DELETE /products/{id} → Delete product
 Orders / Payment
 POST /payment → Save order (payment simulation)
 GET /payment/orders → Get all orders
-📸 Screenshots (optional)
-
-<img width="1875" height="550" alt="Screenshot 2026-04-18 094115" src="https://github.com/user-attachments/assets/9e256e9b-c72e-4c9b-b643-c31cb840ff95" />
-
-
-
-
-
 🧠 Learning Outcome
 Full Stack integration
 REST API development
