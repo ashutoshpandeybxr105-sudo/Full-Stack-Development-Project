@@ -104,7 +104,7 @@ POST /payment → Save order (payment simulation)
 GET /payment/orders → Get all orders
 📸 Screenshots (optional)
 
-<img width="1875" height="550" alt="Screenshot 2026-04-18 094115" src="https://github.com/user-attachments/assets/40decbc3-d8c8-493f-a3c6-9293fae7354f" />
+Screenshot 2026-04-18 094115.png
 <img width="1855" height="755" alt="Screenshot 2026-04-18 094136" src="https://github.com/user-attachments/assets/f0273a36-5792-4da7-beb3-2dc5b04bac78" />
 <img width="1745" height="802" alt="Screenshot 2026-04-18 094149" src="https://github.com/user-attachments/assets/b1ae15bb-ebe9-48dd-8fed-1fb5b6005d7b" />
 
