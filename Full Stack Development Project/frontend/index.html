@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>E-Commerce Project</title>
+    <style>
+body{
+    font-family: Arial;
+    background:#f5f5f5;
+    text-align:center;
+}
+
+input{
+    padding:8px;
+    margin:5px;
+}
+
+button{
+    cursor:pointer;
+}
+</style>
+<style>
+body{
+    font-family: Arial;
+    background: #f4f6f8;
+    margin: 0;
+    padding: 20px;
+}
+
+h1, h2{
+    color: #333;
+}
+
+input{
+    padding: 10px;
+    margin: 5px;
+    width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button{
+    cursor: pointer;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+}
+
+button:hover{
+    opacity: 0.85;
+}
+
+.product-card{
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 10px;
+    width: 220px;
+    display: inline-block;
+    background: white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+img{
+    border-radius: 8px;
+}
+</style>
+</head>
+<body>
+
+<h1>🛒 My E-Commerce Store</h1>
+
+<h3>Add Product</h3>
+
+<input id="name" placeholder="Product Name"><br><br>
+<input id="price" placeholder="Price"><br><br>
+<input id="image" placeholder="Image URL"><br><br>
+
+<button onclick="addProduct()">Add Product</button>
+
+<hr>
+
+<h2>Products List</h2>
+<div id="productList"></div>
+<h2>🛒 My Cart</h2>
+<div id="cartList"></div>
+<h3 id="total"></h3>
+
+<button onclick="goCheckout()"
+style="margin-top:10px;background:blue;color:white;">
+Checkout
+</button>
+<button onclick="loadOrders()"
+style="margin-top:10px;background:purple;color:white;">
+View Orders
+</button>
+
+<div id="ordersList"></div>
+<script>
+    
+    let cart = [];
+
+function addToCart(name, price){
+    cart.push({name, price});
+    showCart();
+}
+
+function showCart(){
+    let html = "";
+    let total = 0;
+
+    cart.forEach((item, index) => {
+        total += Number(item.price);
+
+        html += `
+        <div style="margin:5px;padding:5px;border:1px solid #ccc;">
+            ${item.name} - ₹${item.price}
+            <button onclick="removeFromCart(${index})"
+            style="background:red;color:white;">
+            X
+            </button>
+        </div>
+        `;
+    });
+
+    document.getElementById("cartList").innerHTML = html;
+    document.getElementById("total").innerText = "Total: ₹" + total;
+}
+
+function removeFromCart(index){
+    cart.splice(index, 1);
+    showCart();
+}
+function goCheckout(){
+    let totalText = document.getElementById("total").innerText;
+    let total = totalText.replace("Total: ₹", "");
+
+    localStorage.setItem("total", total);
+
+    window.location.href = "checkout.html";
+}
+
+const API = "http://localhost:8081/products";
+
+// 🔄 Load Products
+function loadProducts() {
+    fetch(API)
+    .then(res => res.json())
+    .then(data => {
+        let html = "";
+        data.forEach(p => {
+    html += `
+    <div class="product-card">
+        <img src="${p.image}" width="150" height="150"
+        onerror="this.src='https://via.placeholder.com/150'">
+
+        <h3>${p.name}</h3>
+        <p>₹${p.price}</p>
+
+        <button onclick="deleteProduct(${p.id})"
+        style="background:red;color:white;">
+        Delete
+        </button>
+
+        <button onclick="addToCart('${p.name}', ${p.price})"
+        style="background:green;color:white;margin-left:5px;">
+        Add to Cart
+        </button>
+    </div>
+    `;
+});
+     
+
+        document.getElementById("productList").innerHTML = html;
+    });
+}
+
+// ➕ Add Product
+function addProduct() {
+    let product = {
+        name: document.getElementById("name").value,
+        price: document.getElementById("price").value,
+        image: document.getElementById("image").value
+    };
+
+    fetch("http://localhost:8081/products", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(product)
+    })
+    .then(res => res.json())
+    .then(data => {
+        console.log("Saved:", data);
+        loadProducts();   // refresh UI
+    })
+    .catch(err => console.error("Error:", err));
+}
+
+// ❌ Delete Product
+function deleteProduct(id) {
+    fetch(API + "/" + id, {
+        method: "DELETE"
+    })
+    .then(() => loadProducts());
+}
+
+// initial load
+loadProducts();
+function loadOrders(){
+    fetch("http://localhost:8081/payment/orders")
+    .then(res => res.json())
+    .then(data => {
+
+        let html = "<h2>📦 Orders</h2>";
+
+        data.forEach(o => {
+            html += `
+            <div style="
+                border:1px solid #ccc;
+                margin:10px;
+                padding:10px;
+                border-radius:8px;
+                background:white;
+            ">
+                <h4>Order ID: ${o.id}</h4>
+                <p>Amount: ₹${o.amount}</p>
+                <p>Status: ${o.status}</p>
+            </div>
+            `;
+        });
+
+        document.getElementById("ordersList").innerHTML = html;
+    })
+    .catch(err => {
+        console.error(err);
+        alert("Failed to load orders");
+    });
+}
+
+
+</script>
+
+</body>
+</html>

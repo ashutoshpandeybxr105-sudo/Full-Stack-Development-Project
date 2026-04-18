@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment</title>
+</head>
+<body style="text-align:center;font-family:Arial">
+
+<h2>💳 Payment Page</h2>
+
+<h3 id="amount"></h3>
+
+<button onclick="pay()"
+style="padding:10px;background:blue;color:white;">
+Pay Now
+</button>
+
+<script>
+let amount = localStorage.getItem("total");
+
+document.getElementById("amount").innerText =
+    "Payable Amount: ₹" + amount;
+
+function pay(){
+
+    fetch("http://localhost:8081/payment", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            amount: amount
+        })
+    })
+    .then(res => res.text())
+    .then(data => {
+        alert("Payment Successful!");
+        localStorage.clear();
+        window.location.href = "success.html";
+    })
+    .catch(err => {
+        console.error(err);
+        alert("Payment Failed!");
+    });
+}
+</script>
+
+</body>
+</html>

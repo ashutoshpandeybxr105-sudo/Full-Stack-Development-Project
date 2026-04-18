@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Checkout</title>
+</head>
+<body style="text-align:center;font-family:Arial">
+
+<h2>🧾 Checkout Page</h2>
+
+<h3 id="totalAmount"></h3>
+
+<button onclick="goPayment()"
+style="padding:10px;background:green;color:white;">
+Proceed to Payment
+</button>
+
+<script>
+    let total = localStorage.getItem("total");
+
+    document.getElementById("totalAmount").innerText =
+        "Total Amount: ₹" + total;
+
+    function goPayment(){
+        window.location.href = "payment.html";
+    }
+</script>
+
+</body>
+</html>

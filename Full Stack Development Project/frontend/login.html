@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+</head>
+<body style="text-align:center;font-family:Arial">
+
+<h2>🔐 Login</h2>
+
+<input id="user" placeholder="Username"><br><br>
+<input id="pass" type="password" placeholder="Password"><br><br>
+
+<button onclick="login()">Login</button>
+
+<script>
+function login(){
+    let u = document.getElementById("user").value;
+    let p = document.getElementById("pass").value;
+
+    if(u === "admin" && p === "1234"){
+        window.location.href = "index.html";
+    } else {
+        alert("Invalid Login");
+    }
+}
+</script>
+
+</body>
+</html>
